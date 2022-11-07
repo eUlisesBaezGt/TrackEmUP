@@ -29,4 +29,16 @@ END;
 
 # CALL PROCEDURE
 CALL TrackEmUP.`TrackEmUP.SearchTeamsByCountry`('Argentina'); # RETURNS 0 ROWS
-CALL TrackEmUP.`TrackEmUP.SearchTeamsByCountry`('Spain'); # RETURNS 2 ROWS AFTER SECOND INSERT
+CALL TrackEmUP.`TrackEmUP.SearchTeamsByCountry`('Spain');
+# RETURNS 2 ROWS AFTER SECOND INSERT
+
+
+# CREATE A FUNCTION THAT SHOWS ALL MATHCES BETWEEN A DATE
+DROP FUNCTION IF EXISTS TrackEmUP.`TrackEmUP.SearchMatchesByDate`;
+
+CREATE PROCEDURE TrackEmUP.`TrackEmUP.SearchMatchesByDate`(sDate DATE, eDate DATE)
+BEGIN
+    SELECT * FROM TrackEmUP.Match WHERE MatchDate BETWEEN sDate AND eDate;
+END;
+
+CALL TrackEmUP.`TrackEmUP.SearchMatchesByDate`('2022-01-01', '2022-06-30'); # RETURNS 2 ROWS AFTER SECOND INSERT

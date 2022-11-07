@@ -84,4 +84,21 @@ CREATE TABLE IF NOT EXISTS `TrackEmUP`.`Player`
     UNIQUE KEY `PlayerName_UNIQUE` (`PlayerName`)
 ) ENGINE = InnoDB;;
 
-## HERE
+CREATE TABLE IF NOT EXISTS `TrackEmUP`.`Match`
+(
+    `MatchID`       INT         NOT NULL AUTO_INCREMENT,
+    `MatchDate`     DATE        NOT NULL,
+    `MatchTime`     TIME        NOT NULL,
+    `MatchHomeTeam` VARCHAR(45) NOT NULL,
+    `ScoreHomeTeam` INT(3)      NOT NULL,
+    `MatchAwayTeam` VARCHAR(45) NOT NULL,
+    `ScoreAwayTeam` INT(3)      NOT NULL,
+    `MatchLeague`   VARCHAR(45) NOT NULL,
+    `MatchStadium`  VARCHAR(45) NOT NULL,
+    PRIMARY KEY (`MatchID`),
+    FOREIGN KEY (`MatchHomeTeam`) REFERENCES `TrackEmUP`.`Team` (`TeamName`),
+    FOREIGN KEY (`MatchAwayTeam`) REFERENCES `TrackEmUP`.`Team` (`TeamName`),
+    FOREIGN KEY (`MatchLeague`) REFERENCES `TrackEmUP`.`League` (`LeagueName`),
+    FOREIGN KEY (`MatchStadium`) REFERENCES `TrackEmUP`.`Stadium` (`StadiumName`),
+    UNIQUE KEY `MatchID_UNIQUE` (`MatchID`)
+) ENGINE = InnoDB;

@@ -23,4 +23,3 @@ FROM TrackEmUP.team
               ON TrackEmUP.team.TeamLeague = TrackEmUP.league.LeagueName
 GROUP BY LeagueName
 ORDER BY TeamCount DESC;
-

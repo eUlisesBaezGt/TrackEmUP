@@ -67,3 +67,12 @@ VALUES ('Sergio Ramos', 'Spain', 'CB', 35, 184, 82, 'R', 'Real Madrid'),
        ('Leonardo Bonucci', 'Italy', 'CB', 34, 187, 85, 'R', 'Juventus'),
        ('Manuel Neuer ', 'Germany', 'GK', 35, 193, 92, 'R', 'Bayern Munich'),
        ('Harry Kane', 'United Kingdom', 'ST', 27, 188, 89, 'R', 'Tottenham Hotspur');
+
+ALTER TABLE `TrackEmUP`.`Match`
+    AUTO_INCREMENT = 1;
+INSERT INTO `TrackEmUP`.`Match`(MatchDate, MatchTime, MatchHomeTeam, ScoreHomeTeam, MatchAwayTeam, ScoreAwayTeam, MatchLeague ,MatchStadium)
+VALUES ('2022-01-01', '20:00:00', 'Real Madrid', 2, 'Barcelona', 1, 'La Liga', 'Camp Nou'),
+       ('2022-12-02', '19:00:00', 'Manchester City', 1, 'Tottenham Hotspur', 2, 'Premier League', 'Old Trafford'),
+       ('2022-10-03', '21:00:00', 'Juventus', 1, 'Bayern Munich', 2, 'Serie A', 'Allianz Arena'),
+       ('2022-09-04', '20:00:00', 'Paris Saint-Germain', 2, 'Manchester City', 1, 'Ligue 1', 'Parc des Princes'),
+       ('2022-04-05', '20:30:00', 'Tottenham Hotspur', 1, 'Real Madrid', 2, 'Premier League', 'Old Trafford');
