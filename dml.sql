@@ -1,3 +1,4 @@
+
 # Select Database
 USE TrackEmUP;
 
@@ -44,6 +45,19 @@ VALUES ('Camp Nou', 99354, 'Barcelona', 'Spain'),
        ('Old Trafford', 76212, 'Manchester', 'United Kingdom');
 
 
+ALTER TABLE `TrackEmUP`.`Team`
+    AUTO_INCREMENT = 1;
+INSERT INTO `TrackEmUP`.`Team`(TeamName, TeamCity, TeamState, TeamCountry, TeamLeague, TeamManager, TeamStadium)
+VALUES ('Real Madrid', 'Madrid', 'Madrid', 'Spain', 'La Liga', 'Pep Guardiola', 'Camp Nou'),
+       ('Paris Saint-Germain', 'Paris', 'Ile-de-France', 'France', 'Ligue 1', 'Zinedine Zidane', 'Parc des Princes'),
+       ('Juventus', 'Turin', 'Piemonte', 'Italy', 'Serie A', 'Carlo Ancelotti', 'Allianz Arena'),
+       ('Bayern Munich', 'Munich', 'Bavaria', 'Germany', 'Bundesliga', 'Jurgen Klopp', 'San Siro'),
+       ('Tottenham Hotspur', 'London', 'England', 'United Kingdom', 'Premier League', 'Alex Ferguson', 'Old Trafford');
+
+INSERT INTO `TrackEmUP`.`Team`(TeamName, TeamCity, TeamState, TeamCountry, TeamLeague, TeamManager, TeamStadium)
+VALUES('Barcelona', 'Barcelona', 'Catalonia', 'Spain', 'La Liga', 'Pep Guardiola', 'Camp Nou'),
+      ('Manchester City', 'Manchester', 'England', 'United Kingdom', 'Premier League', 'Alex Ferguson', 'Old Trafford');
+
 ALTER TABLE `TrackEmUP`.`Player`
     AUTO_INCREMENT = 1;
 INSERT INTO `TrackEmUP`.`Player`(PlayerName, PlayerNationality, PlayerPosition, PlayerAge, PlayerHeight, PlayerWeight,
@@ -53,16 +67,3 @@ VALUES ('Sergio Ramos', 'Spain', 'CB', 35, 184, 82, 'R', 'Real Madrid'),
        ('Leonardo Bonucci', 'Italy', 'CB', 34, 187, 85, 'R', 'Juventus'),
        ('Manuel Neuer ', 'Germany', 'GK', 35, 193, 92, 'R', 'Bayern Munich'),
        ('Harry Kane', 'United Kingdom', 'ST', 27, 188, 89, 'R', 'Tottenham Hotspur');
-
-
-ALTER TABLE `TrackEmUP`.`Team`
-    AUTO_INCREMENT = 1;
-INSERT INTO `TrackEmUP`.`Team`(TeamName, TeamCity, TeamState, TeamCountry, TeamLeague, TeamManager, TeamStadium,
-                               TeamCaptain)
-VALUES ('Real Madrid', 'Madrid', 'Madrid', 'Spain', 'La Liga', 'Pep Guardiola', 'Camp Nou', 'Sergio Ramos'),
-       ('Paris Saint-Germain', 'Paris', 'Ile-de-France', 'France', 'Ligue 1', 'Zinedine Zidane', 'Parc des Princes',
-        'Kylian Mbappe'),
-       ('Juventus', 'Turin', 'Piemonte', 'Italy', 'Serie A', 'Carlo Ancelotti', 'Allianz Arena', 'Leonardo Bonucci'),
-       ('Bayern Munich', 'Munich', 'Bavaria', 'Germany', 'Bundesliga', 'Jurgen Klopp', 'San Siro', 'Manuel Neuer'),
-       ('Tottenham Hotspur', 'London', 'England', 'United Kingdom', 'Premier League', 'Alex Ferguson', 'Old Trafford',
-        'Harry Kane');

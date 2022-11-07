@@ -1,4 +1,4 @@
-# TrackEmUP is a database system that tracks soccer teams, players, stadiums ,matches, referees and other soccer related information.
+# TrackEmUP is a database system that tracks soccer countries, leagues, managers, players, stadiums, teams & matches.
 
 DROP DATABASE IF EXISTS TrackEmUP;
 
