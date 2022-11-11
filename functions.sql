@@ -33,8 +33,8 @@ CALL TrackEmUP.`TrackEmUP.SearchTeamsByCountry`('Spain');
 # RETURNS 2 ROWS AFTER SECOND INSERT
 
 
-# CREATE A FUNCTION THAT SHOWS ALL MATHCES BETWEEN A DATE
-DROP FUNCTION IF EXISTS TrackEmUP.`TrackEmUP.SearchMatchesByDate`;
+# CREATE A FUNCTION THAT SHOWS ALL MATCHES BETWEEN A DATE
+DROP PROCEDURE IF EXISTS TrackEmUP.`TrackEmUP.SearchMatchesByDate`;
 
 CREATE PROCEDURE TrackEmUP.`TrackEmUP.SearchMatchesByDate`(sDate DATE, eDate DATE)
 BEGIN
@@ -42,3 +42,17 @@ BEGIN
 END;
 
 CALL TrackEmUP.`TrackEmUP.SearchMatchesByDate`('2022-01-01', '2022-06-30'); # RETURNS 2 ROWS AFTER SECOND INSERT
+
+
+# CREATE A FUNCTION THAT SHOWS ALL PLAYERS WITH RED CARDS
+DROP PROCEDURE IF EXISTS TrackEmUP.`TrackEmUP.SearchPlayersWithRedCards`;
+
+CREATE PROCEDURE TrackEmUP.`TrackEmUP.SearchPlayersWithRedCards`()
+BEGIN
+    SELECT MatchEventID, MatchID, matchEvent.PlayerID, PlayerName, EventTime, Comments
+        FROM TrackEmUP.MatchEvent
+        JOIN TrackEmUP.Player ON matchEvent.PlayerID = Player.PlayerID
+        WHERE EventType = 2;
+END;
+
+CALL TrackEmUP.`TrackEmUP.SearchPlayersWithRedCards`(); # RETURNS 1 ROW

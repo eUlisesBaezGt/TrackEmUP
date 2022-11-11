@@ -17,6 +17,7 @@ CREATE TABLE IF NOT EXISTS `TrackEmUP`.`Country`
     UNIQUE INDEX `CountryName_UNIQUE` (`CountryName` ASC)
 ) ENGINE = InnoDB;
 
+
 CREATE TABLE IF NOT EXISTS `TrackEmUP`.`League`
 (
     `LeagueID`   INT         NOT NULL AUTO_INCREMENT,
@@ -25,7 +26,8 @@ CREATE TABLE IF NOT EXISTS `TrackEmUP`.`League`
     PRIMARY KEY (`LeagueID`),
     FOREIGN KEY (`Country`) REFERENCES `TrackEmUP`.`Country` (`CountryName`),
     UNIQUE KEY `LeagueName_UNIQUE` (`LeagueName`)
-) ENGINE = InnoDB;;
+) ENGINE = InnoDB;
+
 
 CREATE TABLE IF NOT EXISTS `TrackEmUP`.`Manager`
 (
@@ -34,7 +36,8 @@ CREATE TABLE IF NOT EXISTS `TrackEmUP`.`Manager`
     `ManagerNationality` VARCHAR(45) NOT NULL,
     PRIMARY KEY (`ManagerID`),
     UNIQUE KEY `ManagerName_UNIQUE` (`ManagerName`)
-) ENGINE = InnoDB;;
+) ENGINE = InnoDB;
+
 
 CREATE TABLE IF NOT EXISTS `TrackEmUP`.`Stadium`
 (
@@ -45,7 +48,7 @@ CREATE TABLE IF NOT EXISTS `TrackEmUP`.`Stadium`
     PRIMARY KEY (`StadiumName`),
     FOREIGN KEY (`StadiumCountry`) REFERENCES `TrackEmUP`.`Country` (`CountryName`),
     UNIQUE KEY `StadiumName_UNIQUE` (`StadiumName`)
-) ENGINE = InnoDB;;
+) ENGINE = InnoDB;
 
 
 CREATE TABLE IF NOT EXISTS `TrackEmUP`.`Team`
@@ -82,7 +85,21 @@ CREATE TABLE IF NOT EXISTS `TrackEmUP`.`Player`
     FOREIGN KEY (`PlayerNationality`) REFERENCES `TrackEmUP`.`Country` (`CountryName`),
     FOREIGN KEY (`PlayerTeam`) REFERENCES `TrackEmUP`.`Team` (`TeamName`),
     UNIQUE KEY `PlayerName_UNIQUE` (`PlayerName`)
-) ENGINE = InnoDB;;
+) ENGINE = InnoDB;
+
+
+CREATE TABLE IF NOT EXISTS `TrackEmUP`.`Referee`
+(
+    `RefereeID`       INT         NOT NULL AUTO_INCREMENT,
+    `RefereeName`     VARCHAR(45) NOT NULL,
+    `RefereeAge`      INT         NOT NULL,
+    `RefereeNationality` VARCHAR(45) NOT NULL,
+    `RefereeCategory` VARCHAR(45) NOT NULL,
+    PRIMARY KEY (`RefereeID`),
+    FOREIGN KEY (`RefereeNationality`) REFERENCES `TrackEmUP`.`Country` (`CountryName`),
+    UNIQUE KEY `RefereeName_UNIQUE` (`RefereeName`)
+) ENGINE = InnoDB;
+
 
 CREATE TABLE IF NOT EXISTS `TrackEmUP`.`Match`
 (
@@ -95,10 +112,35 @@ CREATE TABLE IF NOT EXISTS `TrackEmUP`.`Match`
     `ScoreAwayTeam` INT(3)      NOT NULL,
     `MatchLeague`   VARCHAR(45) NOT NULL,
     `MatchStadium`  VARCHAR(45) NOT NULL,
+    `RefereeID`     INT         NOT NULL,
     PRIMARY KEY (`MatchID`),
     FOREIGN KEY (`MatchHomeTeam`) REFERENCES `TrackEmUP`.`Team` (`TeamName`),
     FOREIGN KEY (`MatchAwayTeam`) REFERENCES `TrackEmUP`.`Team` (`TeamName`),
     FOREIGN KEY (`MatchLeague`) REFERENCES `TrackEmUP`.`League` (`LeagueName`),
     FOREIGN KEY (`MatchStadium`) REFERENCES `TrackEmUP`.`Stadium` (`StadiumName`),
+    FOREIGN KEY (`RefereeID`) REFERENCES `TrackEmUP`.`Referee` (`RefereeID`),
     UNIQUE KEY `MatchID_UNIQUE` (`MatchID`)
+) ENGINE = InnoDB;
+
+CREATE TABLE IF NOT EXISTS `TrackEmUP`.`Events`
+(
+    `EventID`   INT         NOT NULL AUTO_INCREMENT,
+    `EventName` VARCHAR(45) NOT NULL,
+    PRIMARY KEY (`EventID`),
+    UNIQUE KEY `EventID_UNIQUE` (`EventID`)
+) ENGINE = InnoDB;
+
+CREATE TABLE IF NOT EXISTS `TrackEmUP`.`MatchEvent`
+(
+    `MatchEventID` INT       NOT NULL AUTO_INCREMENT,
+    `MatchID`      INT       NOT NULL,
+    `PlayerID`     INT       NOT NULL,
+    `EventType`    INT       NOT NULL,
+    `EventTime`    TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    `Comments`     VARCHAR(300) NOT NULL DEFAULT 'No comments',
+    PRIMARY KEY (`MatchEventID`),
+    FOREIGN KEY (`MatchID`) REFERENCES `TrackEmUP`.`Match` (`MatchID`),
+    FOREIGN KEY (`PlayerID`) REFERENCES `TrackEmUP`.`Player` (`PlayerID`),
+    FOREIGN KEY (`EventType`) REFERENCES `TrackEmUP`.`Events` (`EventID`),
+    UNIQUE KEY `MatchEventID_UNIQUE` (`MatchEventID`)
 ) ENGINE = InnoDB;

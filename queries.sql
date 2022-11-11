@@ -18,8 +18,10 @@ FROM TrackEmUP.league
 
 # COUNT HOW MANY TEAMS ARE IN EACH LEAGUE
 SELECT LeagueName, COUNT(TeamName) AS TeamCount
+
 FROM TrackEmUP.team
          JOIN TrackEmUP.league
               ON TrackEmUP.team.TeamLeague = TrackEmUP.league.LeagueName
 GROUP BY LeagueName
 ORDER BY TeamCount DESC;
+

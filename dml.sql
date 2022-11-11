@@ -1,4 +1,3 @@
-
 # Select Database
 USE TrackEmUP;
 
@@ -54,9 +53,12 @@ VALUES ('Real Madrid', 'Madrid', 'Madrid', 'Spain', 'La Liga', 'Pep Guardiola', 
        ('Bayern Munich', 'Munich', 'Bavaria', 'Germany', 'Bundesliga', 'Jurgen Klopp', 'San Siro'),
        ('Tottenham Hotspur', 'London', 'England', 'United Kingdom', 'Premier League', 'Alex Ferguson', 'Old Trafford');
 
+
 INSERT INTO `TrackEmUP`.`Team`(TeamName, TeamCity, TeamState, TeamCountry, TeamLeague, TeamManager, TeamStadium)
-VALUES('Barcelona', 'Barcelona', 'Catalonia', 'Spain', 'La Liga', 'Pep Guardiola', 'Camp Nou'),
-      ('Manchester City', 'Manchester', 'England', 'United Kingdom', 'Premier League', 'Alex Ferguson', 'Old Trafford');
+VALUES ('Barcelona', 'Barcelona', 'Catalonia', 'Spain', 'La Liga', 'Pep Guardiola', 'Camp Nou'),
+       ('Manchester City', 'Manchester', 'England', 'United Kingdom', 'Premier League', 'Alex Ferguson',
+        'Old Trafford');
+
 
 ALTER TABLE `TrackEmUP`.`Player`
     AUTO_INCREMENT = 1;
@@ -68,11 +70,40 @@ VALUES ('Sergio Ramos', 'Spain', 'CB', 35, 184, 82, 'R', 'Real Madrid'),
        ('Manuel Neuer ', 'Germany', 'GK', 35, 193, 92, 'R', 'Bayern Munich'),
        ('Harry Kane', 'United Kingdom', 'ST', 27, 188, 89, 'R', 'Tottenham Hotspur');
 
+
+INSERT INTO `TrackEmUP`.`Referee`(RefereeName, RefereeAge, RefereeNationality, RefereeCategory)
+VALUES ('Pierluigi Collina', 60, 'Italy', 'Legend'),
+       ('Howard Webb', 50, 'United Kingdom', 'Elite'),
+       ('Mark Clattenburg', 50, 'United Kingdom', 'Elite'),
+       ('Massimiliano Irrati', 50, 'Italy', 'Legend'),
+       ('Michael Oliver', 50, 'United Kingdom', 'Elite');
+
+
 ALTER TABLE `TrackEmUP`.`Match`
     AUTO_INCREMENT = 1;
-INSERT INTO `TrackEmUP`.`Match`(MatchDate, MatchTime, MatchHomeTeam, ScoreHomeTeam, MatchAwayTeam, ScoreAwayTeam, MatchLeague ,MatchStadium)
-VALUES ('2022-01-01', '20:00:00', 'Real Madrid', 2, 'Barcelona', 1, 'La Liga', 'Camp Nou'),
-       ('2022-12-02', '19:00:00', 'Manchester City', 1, 'Tottenham Hotspur', 2, 'Premier League', 'Old Trafford'),
-       ('2022-10-03', '21:00:00', 'Juventus', 1, 'Bayern Munich', 2, 'Serie A', 'Allianz Arena'),
-       ('2022-09-04', '20:00:00', 'Paris Saint-Germain', 2, 'Manchester City', 1, 'Ligue 1', 'Parc des Princes'),
-       ('2022-04-05', '20:30:00', 'Tottenham Hotspur', 1, 'Real Madrid', 2, 'Premier League', 'Old Trafford');
+INSERT INTO `TrackEmUP`.`Match`(MatchDate, MatchTime, MatchHomeTeam, ScoreHomeTeam, MatchAwayTeam, ScoreAwayTeam,
+                                MatchLeague, MatchStadium, RefereeID)
+VALUES ('2022-01-01', '20:00:00', 'Real Madrid', 2, 'Barcelona', 1, 'La Liga', 'Camp Nou', 1),
+       ('2022-12-02', '19:00:00', 'Manchester City', 1, 'Tottenham Hotspur', 2, 'Premier League', 'Old Trafford', 2),
+       ('2022-10-03', '21:00:00', 'Juventus', 1, 'Bayern Munich', 2, 'Serie A', 'Allianz Arena', 3),
+       ('2022-09-04', '20:00:00', 'Paris Saint-Germain', 2, 'Manchester City', 1, 'Ligue 1', 'Parc des Princes', 4),
+       ('2022-04-05', '20:30:00', 'Tottenham Hotspur', 1, 'Real Madrid', 2, 'Premier League', 'Old Trafford', 5);
+
+
+ALTER TABLE `TrackEmUP`.`Events`
+    AUTO_INCREMENT = 1;
+INSERT INTO `TrackEmUP`.`Events`(EventName)
+VALUES ('Goal'),
+       ('Yellow Card'),
+       ('Red Card'),
+       ('Substitution'),
+       ('Penalty');
+
+
+ALTER TABLE `TrackEmUP`.`MatchEvent`
+    AUTO_INCREMENT = 1;
+INSERT INTO `TrackEmUP`.`MatchEvent`(MatchID, PlayerID, EventType)
+VALUES (1, 1, 2),
+       (1, 1, 3),
+       (1, 2, 5),
+       (1, 2, 1);
