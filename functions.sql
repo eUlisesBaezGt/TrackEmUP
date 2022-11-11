@@ -52,7 +52,54 @@ BEGIN
     SELECT MatchEventID, MatchID, matchEvent.PlayerID, PlayerName, EventTime, Comments
         FROM TrackEmUP.MatchEvent
         JOIN TrackEmUP.Player ON matchEvent.PlayerID = Player.PlayerID
-        WHERE EventType = 2;
+        WHERE EventType = 3;
 END;
 
 CALL TrackEmUP.`TrackEmUP.SearchPlayersWithRedCards`(); # RETURNS 1 ROW
+
+# CREATE A FUNCTION THAT SHOWS ALL PLAYERS WITH YELLOW CARDS
+DROP PROCEDURE IF EXISTS TrackEmUP.`TrackEmUP.SearchPlayersWithYellowCards`;
+
+CREATE PROCEDURE TrackEmUP.`TrackEmUP.SearchPlayersWithYellowCards`()
+BEGIN
+SELECT MatchEventID, MatchID, matchEvent.PlayerID, PlayerName, EventTime, Comments
+        FROM TrackEmUP.MatchEvent
+        JOIN TrackEmUP.Player ON matchEvent.PlayerID = Player.PlayerID
+        WHERE EventType = 2;
+END;
+
+CALL TrackEmUP.`TrackEmUP.SearchPlayersWithYellowCards`(); # RETURNS 1 ROW
+
+# CREATE A FUNCTION THAT SHOWS ALL PLAYERS WITH GOALS
+DROP PROCEDURE IF EXISTS TrackEmUP.`TrackEmUP.SearchPlayersWithGoals`;
+
+CREATE PROCEDURE TrackEmUP.`TrackEmUP.SearchPlayersWithGoals`()
+BEGIN
+SELECT MatchEventID, MatchID, matchEvent.PlayerID, PlayerName, EventTime, Comments
+        FROM TrackEmUP.MatchEvent
+        JOIN TrackEmUP.Player ON matchEvent.PlayerID = Player.PlayerID
+        WHERE EventType = 1;
+END;
+
+CALL TrackEmUP.`TrackEmUP.SearchPlayersWithGoals`(); # RETURNS 1 ROW
+
+# CREATE A FUNCTION THAT SHOWS ALL THE GAMES OF A TEAM
+DROP PROCEDURE IF EXISTS TrackEmUP.`TrackEmUP.SearchMatchesByTeam`;
+
+CREATE PROCEDURE TrackEmUP.`TrackEmUP.SearchMatchesByTeam`(teamName VARCHAR(250))
+BEGIN
+    SELECT * FROM TrackEmUP.Match WHERE MatchHomeTeam = teamName OR MatchAwayTeam = teamName;
+END;
+
+CALL TrackEmUP.`TrackEmUP.SearchMatchesByTeam`('Barcelona'); # RETURNS 1 ROW
+
+# CREATE A FUNCTION THAT SHOWS ALL THE GAMES WITH A SPECIFIC REFEREE
+DROP PROCEDURE IF EXISTS TrackEmUP.`TrackEmUP.SearchMatchesByReferee`;
+
+CREATE PROCEDURE TrackEmUP.`TrackEmUP.SearchMatchesByReferee`(refID INT)
+BEGIN
+    SELECT MatchID, MatchDate, MatchHomeTeam, ScoreHomeTeam, MatchAwayTeam, ScoreAwayTeam, MatchLeague, MatchStadium
+        FROM TrackEmUP.Match WHERE RefereeID = refID;
+END;
+
+CALL TrackEmUP.`TrackEmUP.SearchMatchesByReferee`(1); # RETURNS 1 ROW
