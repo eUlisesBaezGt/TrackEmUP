@@ -13,6 +13,21 @@ VALUES ('Spain'),
        ('Italy'),
        ('United Kingdom');
 
+DROP FUNCTION IF EXISTS TrackEmUP.`RegisterCountry`;
+
+CREATE FUNCTION TrackEmUP.`RegisterCountry`(vCountry VARCHAR(250))
+    RETURNS VARCHAR(250)
+BEGIN
+    INSERT INTO TrackEmUP.Country (CountryName) VALUES (vCountry);
+    RETURN CONCAT('Successfully Registered: ', vCountry);
+END;
+
+
+SELECT TrackEmUP.RegisterCountry('Argentina') as Registered_Country;
+SELECT TrackEmUP.RegisterCountry('Brazil') as Registered_Country;
+SELECT TrackEmUP.RegisterCountry('Portugal') as Registered_Country;
+SELECT TrackEmUP.RegisterCountry('Croatia') as Registered_Country;
+
 
 ALTER TABLE `TrackEmUP`.`League`
     AUTO_INCREMENT = 1;
@@ -37,7 +52,6 @@ VALUES ('Pep Guardiola', 'Spain'),
        ('Tite', 'Brazil');
 
 
-
 ALTER TABLE `TrackEmUP`.`Stadium`
     AUTO_INCREMENT = 1;
 INSERT INTO `TrackEmUP`.`Stadium`(StadiumName, StadiumCapacity, StadiumCity, StadiumCountry)
@@ -60,8 +74,8 @@ VALUES ('Real Madrid', 'Madrid', 'Madrid', 'Spain', 'La Liga', 'Pep Guardiola', 
 
 
 INSERT INTO `TrackEmUP`.`Team`(TeamName, TeamCity, TeamState, TeamCountry, TeamLeague, TeamManager, TeamStadium)
-VALUES ('Barcelona', 'Barcelona', 'Catalonia', 'Spain', 'La Liga', 'Pep Guardiola', 'Camp Nou'),
-       ('Manchester United', 'Manchester', 'England', 'United Kingdom', 'Premier League', 'Alex Ferguson',
+VALUES ('Barcelona', 'Barcelona', 'Catalonia', 'Spain', 'La Liga', 'Tite', 'Camp Nou'),
+       ('Manchester United', 'Manchester', 'England', 'United Kingdom', 'Premier League', 'Lionel Scaloni',
         'Old Trafford'),
        ('Manchester City', 'Manchester', 'England', 'United Kingdom', 'Premier League', 'José Mourinho',
         'Etihad Stadium');
@@ -119,16 +133,15 @@ VALUES ('Pierluigi Collina', 60, 'Italy', 'Legend'),
        ('Carlos Velasco Carballo', 50, 'Spain', 'Medium');
 
 
-
 ALTER TABLE `TrackEmUP`.`Match`
     AUTO_INCREMENT = 1;
 INSERT INTO `TrackEmUP`.`Match`(MatchDate, MatchTime, MatchHomeTeam, ScoreHomeTeam, MatchAwayTeam, ScoreAwayTeam,
                                 MatchLeague, MatchStadium, RefereeID)
-VALUES ('2022-01-01', '20:00:00', 'Real Madrid', 2, 'Barcelona', 1, 'La Liga', 'Camp Nou', 1),
-       ('2022-12-02', '19:00:00', 'Manchester City', 1, 'Tottenham Hotspur', 2, 'Premier League', 'Old Trafford', 2),
-       ('2022-10-03', '21:00:00', 'Juventus', 1, 'Bayern Munich', 2, 'Serie A', 'Allianz Arena', 3),
-       ('2022-09-04', '20:00:00', 'Paris Saint-Germain', 2, 'Manchester City', 1, 'Ligue 1', 'Parc des Princes', 4),
-       ('2022-04-05', '20:30:00', 'Tottenham Hotspur', 1, 'Real Madrid', 2, 'Premier League', 'Old Trafford', 5);
+VALUES ('2022-01-01', '20:00:00', 'Real Madrid', 2, 'Barcelona', 1, 'La Liga', 'Allianz Arena', 1),
+       ('2022-12-02', '19:00:00', 'Manchester City', 1, 'Tottenham Hotspur', 2, 'Premier League', 'Etihad Stadium', 2),
+       ('2022-10-03', '21:00:00', 'Manchester United', 1, 'Manchester City', 2, 'Serie A', 'Old Trafford', 3),
+       ('2022-07-06', '20:00:00', 'Manchester United', 2, 'Tottenham Hotspur', 1, 'Premier League', 'Old Trafford', 6),
+       ('2022-06-07', '20:00:00', 'Barcelona', 7, 'Real Madrid', 4, 'La Liga', 'Camp Nou', 7);
 
 
 ALTER TABLE `TrackEmUP`.`Events`
@@ -147,7 +160,10 @@ VALUES ('Goal'),
 ALTER TABLE `TrackEmUP`.`MatchEvent`
     AUTO_INCREMENT = 1;
 INSERT INTO `TrackEmUP`.`MatchEvent`(MatchID, PlayerID, EventType)
-VALUES (1, 1, 2),
-       (1, 1, 3),
-       (1, 2, 5),
-       (1, 2, 1);
+VALUES (1, 12, 1),
+       (1, 14, 1),
+       (1, 10, 1),
+       (2, 11, 2),
+       (2, 13, 2),
+       (2, 21, 1),
+       (4, 22, 8);

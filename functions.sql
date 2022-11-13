@@ -1,21 +1,21 @@
 USE TrackEmUP;
 
 # CHECK IF FUNCTION ALREADY EXISTS & DROP IT
-DROP FUNCTION IF EXISTS TrackEmUP.`RegisterCountry`;
+# DROP FUNCTION IF EXISTS TrackEmUP.`RegisterCountry`;
 
-# CREATE FUNCTION
-CREATE FUNCTION TrackEmUP.`RegisterCountry`(vCountry VARCHAR(250))
-    RETURNS VARCHAR(250)
-BEGIN
-    INSERT INTO TrackEmUP.Country (CountryName) VALUES (vCountry);
-    RETURN CONCAT('Successfully Registered: ', vCountry);
-END;
+# CREATE FUNCTION (BEFORE INSERTING PLAYERS)
+# CREATE FUNCTION TrackEmUP.`RegisterCountry`(vCountry VARCHAR(250))
+#     RETURNS VARCHAR(250)
+# BEGIN
+#     INSERT INTO TrackEmUP.Country (CountryName) VALUES (vCountry);
+#     RETURN CONCAT('Successfully Registered: ', vCountry);
+# END;
 
-# CALL FUNCTION
-SELECT TrackEmUP.RegisterCountry('Argentina') as Registered_Country;
-SELECT TrackEmUP.RegisterCountry('Brazil') as Registered_Country;
-SELECT TrackEmUP.RegisterCountry('Portugal') as Registered_Country;
-SELECT TrackEmUP.RegisterCountry('Croatia') as Registered_Country;
+# # CALL FUNCTION (ALREADY CALLED IN DML)
+# SELECT TrackEmUP.RegisterCountry('Argentina') as Registered_Country;
+# SELECT TrackEmUP.RegisterCountry('Brazil') as Registered_Country;
+# SELECT TrackEmUP.RegisterCountry('Portugal') as Registered_Country;
+# SELECT TrackEmUP.RegisterCountry('Croatia') as Registered_Country;
 
 
 # CHECK IF FUNCTION ALREADY EXISTS & DROP IT
@@ -71,7 +71,7 @@ BEGIN
 END;
 
 CALL TrackEmUP.`TrackEmUP.SearchPlayersWithYellowCards`();
-# RETURNS 1 ROW
+# RETURNS 2 ROWS
 
 # CREATE A FUNCTION THAT SHOWS ALL PLAYERS WITH GOALS
 DROP PROCEDURE IF EXISTS TrackEmUP.`TrackEmUP.SearchPlayersWithGoals`;
@@ -85,7 +85,7 @@ BEGIN
 END;
 
 CALL TrackEmUP.`TrackEmUP.SearchPlayersWithGoals`();
-# RETURNS 1 ROW
+# RETURNS 4 ROWS
 
 # CREATE A FUNCTION THAT SHOWS ALL THE GAMES OF A TEAM
 DROP PROCEDURE IF EXISTS TrackEmUP.`TrackEmUP.SearchMatchesByTeam`;
@@ -95,7 +95,7 @@ BEGIN
     SELECT * FROM TrackEmUP.Match WHERE MatchHomeTeam = teamName OR MatchAwayTeam = teamName;
 END;
 
-CALL TrackEmUP.`TrackEmUP.SearchMatchesByTeam`('Barcelona');
+CALL TrackEmUP.`TrackEmUP.SearchMatchesByTeam`('Manchester United');
 # RETURNS 1 ROW
 
 # CREATE A FUNCTION THAT SHOWS ALL THE GAMES WITH A SPECIFIC REFEREE
@@ -135,7 +135,7 @@ BEGIN
     WHERE MatchStadium = stadiumName;
 END;
 
-CALL TrackEmUP.`TrackEmUP.SearchMatchesByStadium`('Camp Nou');
+CALL TrackEmUP.`TrackEmUP.SearchMatchesByStadium`('Old Trafford'); # RETURNS 2 ROWS
 
 # SHOW ALL MATCH EVENTS WHERE A PLAYER WAS INVOLVED
 DROP PROCEDURE IF EXISTS TrackEmUP.`TrackEmUP.SearchMatchEventsByPlayer`;
@@ -148,7 +148,7 @@ BEGIN
     WHERE matchevent.PlayerID = ID;
 END;
 
-CALL TrackEmUP.`TrackEmUP.SearchMatchEventsByPlayer`(1);
+CALL TrackEmUP.`TrackEmUP.SearchMatchEventsByPlayer`(11);
 # RETURNS 2 ROWS
 
 
@@ -169,8 +169,8 @@ BEGIN
     WHERE Player.PlayerTeam = teamName;
 END;
 
-CALL TrackEmUP.`TrackEmUP.SearchPlayersByTeam`('Barcelona');
-# RETURNS 4 ROWS
+CALL TrackEmUP.`TrackEmUP.SearchPlayersByTeam`('Juventus');
+# RETURNS 7 ROWS
 
 # SHOW ALL PLAYERS OF A TEAM WITH A SPECIFIC POSITION
 DROP PROCEDURE IF EXISTS TrackEmUP.`TrackEmUP.SearchPlayersByTeamAndPosition`;
@@ -201,8 +201,8 @@ BEGIN
     SELECT * FROM TrackEmUP.Player WHERE Player.PlayerPosition = position;
 END;
 
-CALL TrackEmUP.`TrackEmUP.SearchPlayersByPosition`('ST');
-# RETURNS 12 ROWS
+CALL TrackEmUP.`TrackEmUP.SearchPlayersByPosition`('GK');
+# RETURNS 4 ROWS
 
 
 # SHOW ALL PLAYERS OF A NATIONALITY

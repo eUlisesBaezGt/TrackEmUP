@@ -90,11 +90,11 @@ CREATE TABLE IF NOT EXISTS `TrackEmUP`.`Player`
 
 CREATE TABLE IF NOT EXISTS `TrackEmUP`.`Referee`
 (
-    `RefereeID`       INT         NOT NULL AUTO_INCREMENT,
-    `RefereeName`     VARCHAR(45) NOT NULL,
-    `RefereeAge`      INT         NOT NULL,
+    `RefereeID`          INT         NOT NULL AUTO_INCREMENT,
+    `RefereeName`        VARCHAR(45) NOT NULL,
+    `RefereeAge`         INT         NOT NULL,
     `RefereeNationality` VARCHAR(45) NOT NULL,
-    `RefereeCategory` VARCHAR(45) NOT NULL,
+    `RefereeCategory`    VARCHAR(45) NOT NULL,
     PRIMARY KEY (`RefereeID`),
     FOREIGN KEY (`RefereeNationality`) REFERENCES `TrackEmUP`.`Country` (`CountryName`),
     UNIQUE KEY `RefereeName_UNIQUE` (`RefereeName`)
@@ -132,11 +132,11 @@ CREATE TABLE IF NOT EXISTS `TrackEmUP`.`Events`
 
 CREATE TABLE IF NOT EXISTS `TrackEmUP`.`MatchEvent`
 (
-    `MatchEventID` INT       NOT NULL AUTO_INCREMENT,
-    `MatchID`      INT       NOT NULL,
-    `PlayerID`     INT       NOT NULL,
-    `EventType`    INT       NOT NULL,
-    `EventTime`    TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    `MatchEventID` INT          NOT NULL AUTO_INCREMENT,
+    `MatchID`      INT          NOT NULL,
+    `PlayerID`     INT          NOT NULL,
+    `EventType`    INT          NOT NULL,
+    `EventTime`    TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP,
     `Comments`     VARCHAR(300) NOT NULL DEFAULT 'No comments',
     PRIMARY KEY (`MatchEventID`),
     FOREIGN KEY (`MatchID`) REFERENCES `TrackEmUP`.`Match` (`MatchID`),
