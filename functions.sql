@@ -3,7 +3,7 @@ USE TrackEmUP;
 # CHECK IF FUNCTION ALREADY EXISTS & DROP IT
 # DROP FUNCTION IF EXISTS TrackEmUP.`RegisterCountry`;
 
-# CREATE FUNCTION (BEFORE INSERTING PLAYERS)
+# CREATE FUNCTION (BEFORE INSERTING PLAYERS)RegisterCountry
 # CREATE FUNCTION TrackEmUP.`RegisterCountry`(vCountry VARCHAR(250))
 #     RETURNS VARCHAR(250)
 # BEGIN
@@ -30,7 +30,7 @@ END;
 # CALL PROCEDURE
 CALL TrackEmUP.`TrackEmUP.SearchTeamsByCountry`('Argentina'); # RETURNS 0 ROWS
 CALL TrackEmUP.`TrackEmUP.SearchTeamsByCountry`('Spain');
-# RETURNS 2 ROWS AFTER SECOND INSERT
+# RETURNS 2 ROWS
 
 
 # CREATE A FUNCTION THAT SHOWS ALL MATCHES BETWEEN A DATE
@@ -42,7 +42,7 @@ BEGIN
 END;
 
 CALL TrackEmUP.`TrackEmUP.SearchMatchesByDate`('2022-01-01', '2022-06-30');
-# RETURNS 2 ROWS AFTER SECOND INSERT
+# RETURNS 2 ROWS
 
 
 # CREATE A FUNCTION THAT SHOWS ALL PLAYERS WITH RED CARDS
@@ -57,7 +57,7 @@ BEGIN
 END;
 
 CALL TrackEmUP.`TrackEmUP.SearchPlayersWithRedCards`();
-# RETURNS 1 ROW
+# RETURNS 0 ROWS
 
 # CREATE A FUNCTION THAT SHOWS ALL PLAYERS WITH YELLOW CARDS
 DROP PROCEDURE IF EXISTS TrackEmUP.`TrackEmUP.SearchPlayersWithYellowCards`;
@@ -96,7 +96,7 @@ BEGIN
 END;
 
 CALL TrackEmUP.`TrackEmUP.SearchMatchesByTeam`('Manchester United');
-# RETURNS 1 ROW
+# RETURNS 2 ROWS
 
 # CREATE A FUNCTION THAT SHOWS ALL THE GAMES WITH A SPECIFIC REFEREE
 DROP PROCEDURE IF EXISTS TrackEmUP.`TrackEmUP.SearchMatchesByReferee`;
@@ -115,7 +115,7 @@ BEGIN
     WHERE RefereeID = refID;
 END;
 
-CALL TrackEmUP.`TrackEmUP.SearchMatchesByReferee`(1);
+CALL TrackEmUP.`TrackEmUP.SearchMatchesByReferee`(2);
 # RETURNS 1 ROW
 
 # CREATE A FUNCTION THAT SHOWS ALL THE GAMES IN A STADIUM
@@ -135,7 +135,8 @@ BEGIN
     WHERE MatchStadium = stadiumName;
 END;
 
-CALL TrackEmUP.`TrackEmUP.SearchMatchesByStadium`('Old Trafford'); # RETURNS 2 ROWS
+CALL TrackEmUP.`TrackEmUP.SearchMatchesByStadium`('Old Trafford');
+# RETURNS 2 ROWS
 
 # SHOW ALL MATCH EVENTS WHERE A PLAYER WAS INVOLVED
 DROP PROCEDURE IF EXISTS TrackEmUP.`TrackEmUP.SearchMatchEventsByPlayer`;
@@ -149,7 +150,7 @@ BEGIN
 END;
 
 CALL TrackEmUP.`TrackEmUP.SearchMatchEventsByPlayer`(11);
-# RETURNS 2 ROWS
+# RETURNS 1 ROW
 
 
 # SHOW ALL PLAYERS OF A TEAM
@@ -166,7 +167,8 @@ BEGIN
            playerweight,
            playerfoot
     FROM TrackEmUP.Player
-    WHERE Player.PlayerTeam = teamName;
+    WHERE Player.PlayerTeam = teamName
+    ORDER BY playerposition;
 END;
 
 CALL TrackEmUP.`TrackEmUP.SearchPlayersByTeam`('Juventus');
@@ -192,6 +194,7 @@ END;
 
 CALL TrackEmUP.`TrackEmUP.SearchPlayersByTeamAndPosition`('Barcelona', 'ST');
 # RETURNS 2 ROWS
+
 
 # SHOW ALL PLAYERS OF A TEAM WITH A SPECIFIC POSITION
 DROP PROCEDURE IF EXISTS TrackEmUP.`TrackEmUP.SearchPlayersByPosition`;

@@ -22,7 +22,6 @@ BEGIN
     RETURN CONCAT('Successfully Registered: ', vCountry);
 END;
 
-
 SELECT TrackEmUP.RegisterCountry('Argentina') as Registered_Country;
 SELECT TrackEmUP.RegisterCountry('Brazil') as Registered_Country;
 SELECT TrackEmUP.RegisterCountry('Portugal') as Registered_Country;

@@ -1,11 +1,11 @@
 USE TrackEmUP;
 
-# SELECTS ALL COUNTRIES
+# SELECTS ALL COUNTRIES (s)
 SELECT *
 FROM TrackEmUP.country
 ORDER BY CountryID;
 
-# SELECTS PLAYER NAME, NATIONALITY, POSITION, FOOT & TEAM
+# SELECTS PLAYER NAME, NATIONALITY, POSITION, FOOT & TEAM (p)
 SELECT PlayerName, PlayerNationality, PlayerPosition, PlayerFoot, PlayerTeam
 FROM TrackEmUP.player
 GROUP BY PlayerName, PlayerPosition
@@ -33,9 +33,23 @@ FROM TrackEmUP.player
          JOIN TrackEmUP.league
               ON TrackEmUP.team.TeamLeague = TrackEmUP.league.LeagueName
 WHERE LeagueName = 'Premier League'
-ORDER BY PlayerPosition;
+ORDER BY PlayerPosition; # RETURNS 10 PLAYERS
 
 # UPDATE AGUERO'S YELLOW CARD
 UPDATE TrackEmUP.matchevent
 SET Comments = 'Kicking corner flag'
 WHERE MatchEventID = 4;
+# CHECK UPDATED
+SELECT MatchEventID, MatchID, PlayerName, EventName, Comments
+FROM TrackEmUP.matchevent
+JOIN TrackEmUP.player
+     ON TrackEmUP.matchevent.PlayerID = TrackEmUP.player.PlayerID
+JOIN TrackEmUP.events ON TrackEmUP.matchevent.EventType = TrackEmUP.events.EventID
+WHERE MatchEventID = 4;
+
+# SEE ALL MATCH EVENTS
+SELECT MatchEventID, MatchID, PlayerName, EventName, Comments
+FROM TrackEmUP.matchevent
+JOIN TrackEmUP.player
+     ON TrackEmUP.matchevent.PlayerID = TrackEmUP.player.PlayerID
+JOIN TrackEmUP.events ON TrackEmUP.matchevent.EventType = TrackEmUP.events.EventID;
