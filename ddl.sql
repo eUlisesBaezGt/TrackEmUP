@@ -35,6 +35,7 @@ CREATE TABLE IF NOT EXISTS `TrackEmUP`.`Manager`
     `ManagerName`        VARCHAR(45) NOT NULL,
     `ManagerNationality` VARCHAR(45) NOT NULL,
     PRIMARY KEY (`ManagerID`),
+    FOREIGN KEY (`ManagerNationality`) REFERENCES `TrackEmUP`.`Country` (`CountryName`),
     UNIQUE KEY `ManagerName_UNIQUE` (`ManagerName`)
 ) ENGINE = InnoDB;
 
